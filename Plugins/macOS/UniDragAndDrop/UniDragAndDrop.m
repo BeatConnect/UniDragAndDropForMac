@@ -2,7 +2,10 @@
 #import <Cocoa/Cocoa.h>
 #import "GetDragAndDropFilePath.h"
 
-void Initialize(cs_callback callback)
+void Initialize(cs_callback callback,
+                cs_callback dragCallback,
+                cs_swipe_callback swipeCallback,
+                cs_pinch_callback pinchCallback)
 {
     NSArray *ar = [NSApp orderedWindows];
     NSWindow *window = [ar objectAtIndex:0];
@@ -13,6 +16,13 @@ void Initialize(cs_callback callback)
 
     [view addSubview:dview];
     
+    NSMagnificationGestureRecognizer *pinchRecognizer = [[NSMagnificationGestureRecognizer alloc] initWithTarget:dview action:@selector(handlePinch:)];
+    [view addGestureRecognizer:pinchRecognizer];
+    
     // set cs callback Pointer
     [dview setCallback:callback];
+    [dview setDragCallback:dragCallback];
+    [dview setSwipeCallback:swipeCallback];
+    [dview setPinchCallback:pinchCallback];
+
 }
