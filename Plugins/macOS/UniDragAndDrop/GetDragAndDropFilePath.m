@@ -33,6 +33,9 @@
     _pinchCallback = callback;
 }
 
+- (void)setMouseWheelCallback:(cs_mouse_wheel_callback)mouseWheelCallback {
+    _mouseWheelCallback = mouseWheelCallback;
+}
 
 - (void)setDragCallback:(cs_callback) dragCallback
 {
@@ -50,7 +53,9 @@
             _swipeCallback(dx, dy);
         }
     } else {
-        // This is a mouse wheel scroll event, you might want to ignore it
+        if (_mouseWheelCallback != NULL) {
+            _mouseWheelCallback(dx, dy);
+        }
     }
 }
 

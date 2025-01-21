@@ -5,7 +5,8 @@
 void Initialize(cs_callback callback,
                 cs_callback dragCallback,
                 cs_swipe_callback swipeCallback,
-                cs_pinch_callback pinchCallback)
+                cs_pinch_callback pinchCallback,
+                cs_mouse_wheel_callback mouseWheelCallback)
 {
     NSArray *ar = [NSApp orderedWindows];
     NSWindow *window = [ar objectAtIndex:0];
@@ -24,5 +25,5 @@ void Initialize(cs_callback callback,
     [dview setDragCallback:dragCallback];
     [dview setSwipeCallback:swipeCallback];
     [dview setPinchCallback:pinchCallback];
-
+    [dview setMouseWheelCallback:mouseWheelCallback];
 }
