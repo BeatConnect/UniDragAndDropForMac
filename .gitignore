@@ -88,3 +88,5 @@ Pods/*
 *.swp
 !.gitkeep
 .DS_Store
+
+Plugins/macOS/_build
