@@ -82,12 +82,24 @@
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
 {
-    NSURL* fileURL = [NSURL URLFromPasteboard: [sender draggingPasteboard]];
-    NSString *url = fileURL!=NULL ? [fileURL path] : @"";
-    const char *path = [url UTF8String];
-    _callback(path);
-    
-    // If you set it to YES, the dropped image will be displayed
+    NSPasteboard *pboard = [sender draggingPasteboard];
+    NSArray<NSURL *> *fileURLs = [pboard readObjectsForClasses:@[[NSURL class]] options:nil];
+
+    if (fileURLs.count > 0)
+    {
+        NSMutableArray *paths = [NSMutableArray array];
+        for (NSURL *fileURL in fileURLs)
+        {
+            [paths addObject:fileURL.path];
+        }
+
+        // Convert NSArray to a single string (if needed)
+        NSString *joinedPaths = [paths componentsJoinedByString:@"\n"];
+        const char *pathCStr = [joinedPaths UTF8String];
+
+        _callback(pathCStr);
+    }
+
     return NO;
 }
 
