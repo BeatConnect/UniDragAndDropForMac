@@ -21,7 +21,5 @@ fi
 # Validate the build type
 validate_build_type $BUILD_TYPE
 
-rm -rf ./_build
-mkdir -p ./_build
 
 xcodebuild -quiet -project "./Plugins/macOS/UniDragAndDrop.xcodeproj" -destination 'generic/platform=macOS' -parallelizeTargets -configuration $BUILD_TYPE build -scheme "UniDragAndDrop"
